@@ -139,6 +139,8 @@ class KeyValuesTest {
     @Test
     void wildcardsAlsoMatchNullDomainValues() {
         DomainResolver resolverMock = mock(DomainResolver.class);
+        when(resolverMock.getDomainValue("dom1")).thenReturn(null);
+        when(resolverMock.getDomainValue("dom2")).thenReturn(null);
         when(resolverMock.getDomainValue("dom3")).thenReturn("domVal3");
         keyValues.put("value", "*", "*", "domVal3");
         assertThat(keyValues.get(asList("dom1", "dom2", "dom3"), "default", resolverMock)).isEqualTo("value");
